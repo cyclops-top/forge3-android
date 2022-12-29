@@ -1,0 +1,56 @@
+plugins {
+    id 'forge.android.application.compose'
+}
+
+android {
+    namespace 'top.cyclops.forge'
+
+    defaultConfig {
+        applicationId "top.cyclops.forge"
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    flavorDimensions('env')
+    productFlavors {
+        local {
+            dimension 'env'
+            buildConfigField("String", "API_BASE_URL", "\"http://192.168.100.175:8080\"")
+        }
+        product {
+            dimension 'env'
+            buildConfigField("String", "API_BASE_URL", "\"http://192.168.100.175:8080\"")
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.activity:activity-compose:1.6.1'
+    implementation project(":core:network")
+    implementation project(":feature:project")
+    implementation project(":feature:download")
+    implementation project(":feature:auth")
+}

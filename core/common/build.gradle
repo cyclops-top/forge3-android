@@ -1,0 +1,11 @@
+plugins {
+    id 'forge.android.library'
+}
+
+android {
+    namespace 'top.cyclops.forge.common'
+}
+
+dependencies {
+
+}

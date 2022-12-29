@@ -1,0 +1,14 @@
+plugins {
+    id 'forge.android.library'
+    id 'forge.android.hilt'
+    id "forge.kotlin.serialization"
+}
+
+android {
+    namespace 'top.cyclops.forge.network'
+}
+
+dependencies {
+    implementation(project(":core:common"))
+    implementation(libs.bundles.network)
+}
