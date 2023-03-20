@@ -1,6 +1,6 @@
 # Forge3 android （开发中）
-> `forge` 是本人单独开发的一个内部使用apk管理工具，目前重构第三版，该项目为 `forge` 配套的`Android`客户端（PS. 未完成，目前只有框架）
-> 后台服务使用Spring boot（kotlin）开发
+> `forge` 是本人单独开发的一个内部使用apk管理工具，目前重构第三版，该项目为 `forge` 配套的`Android`客户端（PS. 未完成），
+> 后台服务使用`Spring boot（kotlin）`开发，
 > 后台管理界面目前计划使用`Angular`进行开发
 
 ## 特点
