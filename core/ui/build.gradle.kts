@@ -4,9 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.ui"
+    namespace = "forge.ui"
 }
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(libs.kotlinx.datetime)
 }

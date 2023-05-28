@@ -3,9 +3,8 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.data.auth"
+    namespace = "forge.data.auth"
 }
 
 dependencies {
-    implementation(project(":core:storage"))
 }

@@ -33,12 +33,14 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementation(libs.bundle("androidx.base"))
                 implementation(libs.library("coil.kt"))
                 implementation(libs.library("coil.kt.compose"))
+                implementation(libs.library("paging.compose"))
 
                 implementation(libs.library("androidx.hilt.navigation.compose"))
 
                 implementation(libs.library("androidx.lifecycle.runtimeCompose"))
                 implementation(libs.library("androidx.lifecycle.viewModelCompose"))
                 implementation(libs.library("navigation.compose"))
+                implementation(libs.library("navigation.animation"))
 
                 implementation(libs.library("kotlinx.coroutines.android"))
             }

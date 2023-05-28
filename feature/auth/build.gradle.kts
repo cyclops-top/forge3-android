@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.feature.auth"
+    namespace = "forge.feature.auth"
 }
 
 dependencies {

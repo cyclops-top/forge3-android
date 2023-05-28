@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.data.project"
+    namespace = "forge.data.project"
 
 }
 

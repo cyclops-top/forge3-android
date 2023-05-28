@@ -9,15 +9,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import top.cyclops.forge.navigation.TopLevelDestination
 
 @Composable
 fun rememberForgeAppState(
-    navHostController: NavHostController = rememberNavController(),
+    navHostController: NavHostController = rememberAnimatedNavController(),
     topLevelDestination: List<TopLevelDestination> = TopLevelDestination.values().asList()
 ): ForgeAppState {
+    val mainScreenNavController = rememberNavController()
     return remember(navHostController) {
-        ForgeAppState(navHostController, topLevelDestination)
+        ForgeAppState(navHostController,mainScreenNavController, topLevelDestination)
     }
 }
 
@@ -25,15 +27,12 @@ fun rememberForgeAppState(
 @Stable
 class ForgeAppState(
     val navController: NavHostController,
+    val bottomScreenNavController: NavHostController,
     val topLevelDestinations: List<TopLevelDestination>
 ) {
-    val currentDestination: NavDestination?
-        @Composable get() = navController
+    val currentBottomDestination: NavDestination?
+        @Composable get() = bottomScreenNavController
             .currentBackStackEntryAsState().value?.destination
-
-    val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = TopLevelDestination.values()
-            .find { it.route == currentDestination?.route }
 
 
     fun onBackClick() {
@@ -45,7 +44,7 @@ class ForgeAppState(
             // Pop up to the start destination of the graph to
             // avoid building up a large stack of destinations
             // on the back stack as users select items
-            popUpTo(navController.graph.findStartDestination().id) {
+            popUpTo(bottomScreenNavController.graph.findStartDestination().id) {
                 saveState = true
             }
             // Avoid multiple copies of the same destination when
@@ -54,6 +53,6 @@ class ForgeAppState(
             // Restore state when reselecting a previously selected item
             restoreState = true
         }
-        navController.navigate(topLevelDestination.route,topLevelNavOptions)
+        bottomScreenNavController.navigate(topLevelDestination.route,topLevelNavOptions)
     }
 }

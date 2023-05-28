@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.feature.download"
+    namespace = "forge.feature.download"
 }

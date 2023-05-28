@@ -5,9 +5,10 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.model"
+    namespace = "orge.model"
 }
 
 dependencies {
     api(libs.kotlinx.datetime)
+    api(libs.room.ktx)
 }

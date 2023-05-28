@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import top.cyclops.forge.common.ForgeConfig
+import forge.common.ForgeConfig
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -13,6 +13,6 @@ class ConfigModule {
     @Provides
     @Singleton
     fun config(): ForgeConfig {
-        return ForgeConfig("http://192.168.100.175:8080/","android-app","123456")
+        return ForgeConfig("http://192.168.31.175:8080/","android-app","123456")
     }
 }

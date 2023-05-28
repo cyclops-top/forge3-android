@@ -3,9 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "top.cyclops.forge.feature.project"
+    namespace = "forge.feature.project"
 }
 
 dependencies {
     implementation(project(":data:project"))
+    implementation(project(":data:version"))
 }

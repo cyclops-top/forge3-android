@@ -19,7 +19,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import top.cyclops.forge.build.bundle
 import top.cyclops.forge.build.configureAndroidCompose
 import top.cyclops.forge.build.configureKotlinAndroid
