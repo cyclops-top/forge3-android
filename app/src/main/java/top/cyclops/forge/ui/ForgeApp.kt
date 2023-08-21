@@ -12,7 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import forge.common.AuthState
-import forge.download.DownloadsScreen
+import forge.download.navigation.DownloadRoute
 import forge.download.navigation.downloadRoute
 import forge.feature.auth.navigation.signInRoute
 import forge.feature.project.navigation.navigateToProject
@@ -70,7 +70,7 @@ fun MainScreen(
                 ProjectsRoute(appState.navController::navigateToProject)
             }
             composable(downloadRoute){
-                DownloadsScreen()
+                DownloadRoute()
             }
         }
     }

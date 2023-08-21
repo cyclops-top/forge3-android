@@ -1,16 +1,16 @@
 package forge.download.navigation
 
-import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
+import androidx.compose.runtime.Composable
 import forge.download.DownloadsScreen
+import forge.ui.statisticsView
 
 
 const val downloadRoute = "downloads"
 
 
-fun NavGraphBuilder.downloadScreen(
+@Composable
+fun DownloadRoute(
 ) {
-    composable(downloadRoute) {
+        statisticsView(downloadRoute)
         DownloadsScreen()
-    }
 }

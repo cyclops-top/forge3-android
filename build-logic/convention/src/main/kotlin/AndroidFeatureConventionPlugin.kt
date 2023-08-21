@@ -29,6 +29,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 implementation(project(":core:common"))
                 implementation(project(":core:model"))
                 implementation(project(":core:ui"))
+                implementation(project(":core:statistics"))
 
                 implementation(libs.bundle("androidx.base"))
                 implementation(libs.library("coil.kt"))

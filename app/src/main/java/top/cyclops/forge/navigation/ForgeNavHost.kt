@@ -5,8 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import forge.feature.auth.navigation.authRoute
 import forge.feature.project.navigation.projectScreen
 
@@ -18,7 +18,7 @@ fun ForgeNavHost(
     modifier: Modifier = Modifier,
     mainScreen: @Composable () -> Unit,
 ) {
-    AnimatedNavHost(
+    NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = "main",

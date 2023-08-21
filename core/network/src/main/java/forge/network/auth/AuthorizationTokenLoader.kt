@@ -1,7 +1,5 @@
 package forge.network.auth
 
-import forge.network.NetworkException
-
 sealed interface AuthorizationTokenLoader {
     suspend fun get(authority: Authority): AuthorizationToken
 
@@ -28,7 +26,7 @@ sealed interface AuthorizationTokenLoader {
 
         override suspend fun get(authority: Authority): AuthorizationToken {
             return when (authority) {
-                Authority.Required -> getBearerToken() ?: throw NetworkException("Unauthorized")
+                Authority.Required -> getBearerToken() ?: basicToken
                 Authority.Optional -> getBearerToken() ?: basicToken
                 Authority.Without -> basicToken
             }

@@ -6,7 +6,6 @@ import forge.data.version.local.VersionDao
 import forge.data.version.remote.VersionApi
 import forge.model.Page
 import forge.model.Version
-import retrofit2.Response
 
 internal class VersionRemoteMediator(
     private val project: Long,
@@ -21,7 +20,7 @@ internal class VersionRemoteMediator(
         return local.pager(project)
     }
 
-    override suspend fun loadFormNetwork(index: Int, size: Int): Response<Page<Version>> {
+    override suspend fun loadFormNetwork(index: Int, size: Int): Result<Page<Version>> {
         return remote.page(project, index, size)
     }
 

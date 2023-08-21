@@ -1,0 +1,14 @@
+plugins {
+    id 'forge.android.library'
+    id 'forge.android.hilt'
+}
+
+android {
+    namespace 'top.cyclops.forge.countly'
+}
+
+dependencies {
+    implementation(project(":core:common"))
+    implementation(project(":core:statistics"))
+    implementation(libs.countly)
+}

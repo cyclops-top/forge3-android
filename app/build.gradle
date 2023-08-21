@@ -9,7 +9,7 @@ android {
         applicationId "top.cyclops.forge"
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -20,6 +20,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -32,7 +33,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    flavorDimensions('env')
+    flavorDimensions = ["env"]
     productFlavors {
         local {
             dimension 'env'
@@ -46,12 +47,17 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
-    implementation 'androidx.activity:activity-compose:1.7.2'
+    implementation libs.androidx.ktx
+    implementation libs.androidx.lifcycle
+    implementation libs.activity.compose
     implementation project(":core:network")
     implementation project(":feature:project")
     implementation project(":feature:download")
     implementation project(":feature:auth")
+    implementation project(":plugins:countly")
     implementation libs.navigation.animation
+
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.test.junit
+    androidTestImplementation libs.androidx.test.espresso
 }

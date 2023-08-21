@@ -13,6 +13,6 @@ class ConfigModule {
     @Provides
     @Singleton
     fun config(): ForgeConfig {
-        return ForgeConfig("http://192.168.31.175:8080/","android-app","123456")
+        return ForgeConfig("http://forge.cyclops.top/api/","android-app","123456")
     }
 }

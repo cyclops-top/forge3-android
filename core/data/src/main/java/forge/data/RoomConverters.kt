@@ -5,7 +5,7 @@ package forge.data
 import androidx.room.TypeConverter
 import kotlinx.datetime.Instant
 import java.math.BigDecimal
-import java.util.*
+import java.util.Date
 
 object RoomConverters {
     @TypeConverter

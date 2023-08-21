@@ -7,7 +7,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import forge.model.Page
-import retrofit2.Response
 
 @OptIn(ExperimentalPagingApi::class)
 abstract class SimpleDatabaseSyncNetworkMediator<T : Any> : RemoteMediator<Int, T>() {
@@ -15,7 +14,7 @@ abstract class SimpleDatabaseSyncNetworkMediator<T : Any> : RemoteMediator<Int, 
     abstract suspend fun clearLocal()
     abstract suspend fun insertToLocal(data: List<T>)
     abstract fun pagingSource(): PagingSource<Int, T>
-    abstract suspend fun loadFormNetwork(index: Int, size: Int): Response<Page<T>>
+    abstract suspend fun loadFormNetwork(index: Int, size: Int): Result<Page<T>>
     override suspend fun load(loadType: LoadType, state: PagingState<Int, T>): MediatorResult {
         return try {
             val loadSize = state.config.getLoadSize(loadType)
@@ -32,14 +31,14 @@ abstract class SimpleDatabaseSyncNetworkMediator<T : Any> : RemoteMediator<Int, 
             if (loadType == LoadType.REFRESH) {
                 clearLocal()
             }
-            if (result.isSuccessful) {
-                val data = result.body()!!
+            if (result.isSuccess) {
+                val data = result.getOrThrow()
                 insertToLocal(data.content)
                 MediatorResult.Success(
                     endOfPaginationReached = !data.hasNext
                 )
             } else {
-                MediatorResult.Error(Throwable(result.message()))
+                MediatorResult.Error(result.exceptionOrNull() ?: Throwable("网络错误"))
             }
         } catch (e: Exception) {
             e.printStackTrace()

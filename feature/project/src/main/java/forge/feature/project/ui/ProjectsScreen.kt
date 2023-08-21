@@ -43,9 +43,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import forge.model.Project
+import forge.ui.statisticsView
 import forge.ui.theme.ForgeTheme
 import kotlinx.datetime.Clock
 
@@ -56,6 +58,7 @@ fun ProjectsRoute(
 ) {
     val viewModel: ProjectsViewModel = hiltViewModel()
     val projectItems = viewModel.projects.collectAsLazyPagingItems()
+    statisticsView("projects")
     ProjectsScreen(projectItems, navigationToProject) {
         if (it.isCollected) {
             viewModel.cancelCollect(it.id)
@@ -91,9 +94,9 @@ internal fun ProjectsScreen(
                 )
             }) { padding ->
             LazyColumn(modifier = Modifier.padding(padding)) {
-                items(projectItems, key = { it.id }) {
+                items(projectItems.itemCount,key = projectItems.itemKey { it }, contentType = projectItems.itemContentType { "project" }){index->
                     ProjectItem(
-                        it!!, toggleCollect = toggleCollect,
+                        projectItems[index]!!, toggleCollect = toggleCollect,
                         onClick = { project ->
                             navigationToProject(project.id)
                         },

@@ -43,6 +43,7 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
                 implementation(project(":core:common"))
                 implementation(project(":core:model"))
                 implementation(project(":core:ui"))
+                implementation(project(":core:statistics"))
                 implementation(libs.bundle("androidx.base"))
                 implementation(libs.library("androidx.hilt.navigation.compose"))
                 implementation(libs.library("androidx.lifecycle.runtimeCompose"))

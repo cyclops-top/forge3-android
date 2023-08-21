@@ -1,0 +1,15 @@
+plugins {
+    id 'forge.android.library'
+    id 'forge.android.hilt'
+}
+
+android {
+    namespace 'top.cyclops.forge.statistics'
+}
+
+dependencies {
+    implementation(project(":core:common"))
+    implementation(libs.bundles.network)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.bundles.androidx.lifecycle)
+}

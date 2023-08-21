@@ -14,7 +14,7 @@ internal interface ProjectApi {
     suspend fun page(
         @Query("page") index: Int,
         @Query("size") size: Int,
-    ): Response<Page<ProjectRemote>>
+    ): Result<Page<ProjectRemote>>
 
     @GET("project/{id}")
     suspend fun detail(@Path("id") id:Long):Response<ProjectRemote>

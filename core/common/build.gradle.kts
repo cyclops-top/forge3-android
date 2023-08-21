@@ -1,5 +1,6 @@
 plugins {
     id("forge.android.library")
+    id("forge.android.hilt")
 }
 
 android {

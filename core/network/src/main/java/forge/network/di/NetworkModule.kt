@@ -11,6 +11,7 @@ import forge.common.ForgeConfig
 import forge.network.ApiCreator
 import forge.network.NetworkBigDecimalConverter
 import forge.network.NetworkStringConverter
+import forge.network.ResultCallAdapterFactory
 import forge.network.asConverterFactory
 import forge.network.auth.AuthorizationInterceptor
 import forge.network.auth.TokenLoader
@@ -70,6 +71,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(client)
             .baseUrl(config.baseUrl)
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .addConverterFactory(NetworkBigDecimalConverter.factory())
             .addConverterFactory(NetworkStringConverter.factory())
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))

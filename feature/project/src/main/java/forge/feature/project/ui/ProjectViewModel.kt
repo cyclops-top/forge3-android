@@ -20,7 +20,7 @@ internal class ProjectViewModel @Inject constructor(
     private val versionRepository: VersionRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-    private val args = ProjectArgs(savedStateHandle)
+    val args = ProjectArgs(savedStateHandle)
     private val _projectStream = MutableStateFlow(args.project)
     val projectStream = _projectStream.asStateFlow()
 

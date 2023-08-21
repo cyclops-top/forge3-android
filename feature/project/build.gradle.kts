@@ -9,4 +9,6 @@ android {
 dependencies {
     implementation(project(":data:project"))
     implementation(project(":data:version"))
+    implementation(project(":data:system"))
+    implementation(libs.paging.compose)
 }

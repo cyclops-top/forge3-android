@@ -48,17 +48,22 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemsIndexed
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import forge.model.Project
 import forge.model.Version
 import forge.ui.DateTime
+import forge.ui.statisticsView
+import kotlinx.datetime.Clock
 
 @Composable
 internal fun ProjectRoute(onBackClick: () -> Unit) {
     val viewModel: ProjectViewModel = hiltViewModel()
+
     val project = viewModel.projectStream.collectAsStateWithLifecycle()
     val versions = viewModel.versions.collectAsLazyPagingItems()
+    statisticsView("project", "id" to viewModel.args.projectId)
     ProjectScreen(project.value, versions, onBackClick) {
         if (it.isCollected) {
             viewModel.cancelCollect(it.id)
@@ -103,8 +108,12 @@ fun ProjectScreen(
                 item {
                     Spacer(modifier = Modifier.height(16.dp))
                 }
-                itemsIndexed(versions, key = { _, item -> "version#${item.id}" }) { index, item ->
-                    VersionItem(project, item!!, index)
+                items(
+                    versions.itemCount,
+                    key = versions.itemKey { it },
+                    contentType = versions.itemContentType { "Version" }) { index ->
+                    val item = versions[index]
+                    VersionItem(project, item)
                 }
             }
 
@@ -192,20 +201,12 @@ private fun ProjectInformation(
 @Composable
 private fun VersionItem(
     project: Project,
-    version: Version,
-    index: Int,
+    version: Version?,
 ) {
     Box(modifier = Modifier.height(IntrinsicSize.Min)) {
         Box(
             modifier = Modifier
                 .padding(start = 16.dp)
-                .let {
-                    if (index == 0) {
-                        it.padding(top = 30.dp)
-                    } else {
-                        it
-                    }
-                }
                 .width(1.dp)
                 .fillMaxHeight()
                 .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f))
@@ -225,8 +226,8 @@ private fun VersionItem(
                 .padding(start = 16.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = version.name, style = MaterialTheme.typography.titleMedium)
-                if (project.sign != version.sign) {
+                Text(text = version?.name ?: "", style = MaterialTheme.typography.titleMedium)
+                if (project.sign != version?.sign) {
                     Box(
                         modifier = Modifier
                             .padding(start = 16.dp)
@@ -255,7 +256,7 @@ private fun VersionItem(
                         tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
                     )
                     Text(
-                        text = version.file.displaySize,
+                        text = version?.file?.displaySize ?: "",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.W500,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f)
@@ -263,13 +264,13 @@ private fun VersionItem(
                 }
             }
             DateTime(
-                time = version.createdTime,
+                time = version?.createdTime ?: Clock.System.now(),
                 fontSize = 10.sp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 modifier = Modifier.padding(top = 4.dp)
             )
             Row(modifier = Modifier.padding(top = 8.dp)) {
-                for (tag in version.tags) {
+                for (tag in (version?.tags ?: emptyList())) {
                     Box(
                         modifier = Modifier
                             .padding(end = 4.dp)
@@ -291,7 +292,7 @@ private fun VersionItem(
             }
 
             Text(
-                text = version.description,
+                text = version?.description ?: "",
                 modifier = Modifier.padding(top = 8.dp),
                 style = MaterialTheme.typography.bodyMedium
             )
